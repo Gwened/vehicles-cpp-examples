@@ -1,0 +1,36 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "cppbuild",
+			"label": "C/C++: clang++ générer",
+			"command": "/usr/bin/clang++",
+			"args": [
+				"-std=c++17",
+				"-stdlib=libc++",
+				"-I${workspaceFolder}/Vehicles1",
+				"-I${workspaceFolder}/Vehicles2",
+				"-I${workspaceFolder}/Vehicles3",
+				"-I${workspaceFolder}/Vehicles4",
+				"${workspaceFolder}/Main/*.cpp",
+				"${workspaceFolder}/Vehicles1/*.cpp",
+				"${workspaceFolder}/Vehicles2/*.cpp",
+				"${workspaceFolder}/Vehicles3/*.cpp",
+				"${workspaceFolder}/Vehicles4/*.cpp",
+				"-g",
+				"-oVehicles.out"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"detail": "compilateur : /usr/bin/clang++"
+		}
+	]
+}
