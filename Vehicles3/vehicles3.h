@@ -80,7 +80,7 @@ namespace v3
         void accelerate() { cout << "Shhhh" << endl; }
     };
     
-    struct CarB : public Vehicle<4>
+    struct CarC : public Vehicle<4>
     {
         void accelerate() { cout << "Vrooom" << endl; }
         void setReverse(bool r);
@@ -93,7 +93,7 @@ namespace v3
         void accelerate() { cout << "Rrrroar" << endl; }
     };
     
-    struct Glider : public Vehicle<3>
+    struct GliderC : public SmallAircraftC
     {
         // Ooop, I've got a useless engine
     };
@@ -104,6 +104,58 @@ namespace v3
 
 
 
+    /*
+     * Attempt #4: Bring interfaces to save the glider
+     */
+
+    struct IVehicle
+    {
+        virtual void accelerate() = 0;
+    };
+
+    struct IMotorizedVehicle : public IVehicle
+    {
+        virtual void accelerate() = 0;
+    };
+
+    struct IReversible
+    {
+        virtual void setReverse(bool r) = 0;
+    };
+
+    struct CarD : public IMotorizedVehicle, public IReversible, private Vehicle<4>
+    {
+        void accelerate() override { cout << "Vrooom" << endl; }
+        void setReverse(bool r) override {}
+    };
+    
+    struct SmallAircraftD : public IMotorizedVehicle, private Vehicle<3>
+    {
+        array<Wing, 2>            wings;
+
+        void accelerate() override { cout << "Rrrroar" << endl; }
+    };
+    
+    struct GliderD : public IVehicle
+    {
+        array<v2::Wheel, 3>   wheels;
+
+        void accelerate() override { cout << "Gone with the wind" << endl; }
+    };
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /*
      * Towing vehicles attempt #1: only cars
      */
@@ -168,16 +220,6 @@ namespace v3
      * Towing vehicles attempt #3: using interfaces
      */
 
-    struct IVehicle
-    {
-        virtual void accelerate() = 0;
-    };
-
-    struct IReversable
-    {
-        virtual void setReverse(bool r) = 0;
-    };
-
     struct ITowable
     {
         virtual ITowable& tow(const IVehicle& v) = 0;
@@ -200,7 +242,7 @@ namespace v3
         }
     };
 
-    struct TrailerCarC : public TrailerVehicleC<4>, public IReversable
+    struct TrailerCarC : public TrailerVehicleC<4>, public IReversible
     {
         // Implement the IReversable interface
         void setReverse(bool r) override { cout << "Crrrc" << endl; }
