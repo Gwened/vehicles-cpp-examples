@@ -16,7 +16,12 @@
             "compilerArgs": [
                 "-std=c++17",
                 "-stdlib=libc++"
-            ]
+            ],
+            "browse": {
+                "path": ["${workspaceFolder}"],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+              }
         }
     ],
     "version": 4
